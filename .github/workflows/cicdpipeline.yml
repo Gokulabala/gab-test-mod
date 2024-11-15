@@ -98,19 +98,13 @@ jobs:
 
     
       # Security Check - Container Vulnerability Scan
-      - name: Download Trivy Vulnerability Database
-        run: |
-          docker run --rm \
-            -v /root/.cache:/root/.cache aquasec/trivy:latest \
-            --download-db-only
-
-      
       - name: Run Trivy Image Scan
         run: |
           docker run --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v /root/.cache:/root/.cache aquasec/trivy:latest \
             image --severity HIGH,CRITICAL ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$ECR_REPOSITORY:latest
+
 
 
       - name: Push Docker image to ECR
