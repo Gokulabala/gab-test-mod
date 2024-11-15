@@ -88,6 +88,14 @@ jobs:
       - name: Build and tag Docker image
         run: |
           docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$ECR_REPOSITORY:latest .
+
+      - name: Debug Environment Variables
+        run: |
+          echo "AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID"
+          echo "AWS_REGION=$AWS_REGION"
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY"
+          echo "ENVIRONMENT=$ENVIRONMENT"
+
     
       # Security Check - Container Vulnerability Scan
       - name: Run Trivy Image Scan
