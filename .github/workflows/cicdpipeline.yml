@@ -69,6 +69,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Verify ECR Login
+        run: docker info
+
       - name: Set environment variables based on branch
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
