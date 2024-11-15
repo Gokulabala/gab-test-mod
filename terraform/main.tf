@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-west-2"
+  region = "eu-north-1"
 }
 
 # Select the workspace (dev, prod, stage)
@@ -28,7 +28,7 @@ terraform {
   backend "s3" {
     bucket = "gab-terraform-state-bucket-dev"  ## actual bucket name
     key    = "terraform/state/default.tfstate"
-    region = "eu-west-2"
+    region = "eu-north-1"
   }
 }
 
@@ -109,7 +109,7 @@ resource "aws_eks_node_group" "eks_node_group" {
     min_size     = 1
   }
 
-  instance_types = ["t2.medium"]
+  instance_types = ["t3.medium"]
 
   remote_access {
     ec2_ssh_key = var.ssh_key_name
@@ -227,7 +227,7 @@ resource "aws_ecr_repository" "app_repo" {
 # EC2 instance configuration
 resource "aws_instance" "ubuntu_instance" {
   ami           = "ami-0e8d228ad90af673b"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   subnet_id     = aws_subnet.main[0].id  # Subnets
   
   tags = {
